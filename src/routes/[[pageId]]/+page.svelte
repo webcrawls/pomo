@@ -6,6 +6,7 @@
     import {defaultSheet} from "$lib/util";
     import {getContext} from "svelte";
     import SheetView from "$lib/components/SheetView.svelte";
+    import DebugContainer from "$lib/components/debug/DebugContainer.svelte";
 
     const app: Writable<AppInfo> = getContext("app")
     $: sheet = sheetStore($page.params.pageId, defaultSheet($page.params.pageId))
@@ -23,3 +24,4 @@
     <SheetView sheet={$sheet} pageId={$page.params.pageId}
                on:update={handleSheetUpdate}/>
 {/if}
+<DebugContainer sheet="{$sheet}"/>

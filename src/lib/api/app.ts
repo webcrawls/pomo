@@ -1,6 +1,6 @@
 export interface AppInfo {
-    pages: string[]
-    deleted?: string[]
-    theme?: string
-    layout?: string
+  pages: string[];
+  deleted?: string[];
+  theme?: string;
+  layout?: string;
 }
