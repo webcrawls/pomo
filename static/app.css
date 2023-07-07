@@ -1,0 +1,192 @@
+/** CSS Variable Declarations **/
+:root {
+    --font-default: monospace;
+    --font-header: var(--font-default);
+
+    --color-1: white; /* Page background */
+    --color-2: #eaeaea; /* Page alt background (sidebar) */
+    --color-3: #b7b7b7; /* Page border */
+    --color-4: #2c2c2c; /* Button bg */
+    --color-5: #d7d7d7; /* Button fg */
+}
+
+* {
+    box-sizing: border-box;
+    font-family: var(--font-default);
+}
+
+html {
+    font-size: 14px;
+}
+
+/** Style resets **/
+h1, h2, h3, h4, h5, h6, p, input, html, body {
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-header);
+}
+
+html, body {
+    min-height: 100vh;
+    height: 100%;
+}
+
+.display-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 1rem;
+}
+
+.content-layout {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    height: 100%;
+}
+
+.sidebar-container {
+    background-color: var(--color-2);
+    max-width: 32ch;
+    width: 100%;
+    padding: 1rem;
+    border-right: 1px solid var(--color-3);
+}
+
+.sidebar-nav {
+
+}
+
+.sidebar-nav ul {
+    list-style-type: none;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0;
+}
+
+.sidebar-nav li {
+    width: 100%;
+}
+
+.page-container {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.page-header {
+}
+
+.page-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-full {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.button {
+    color: var(--color-4);
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 0.65rem;
+    display: flex;
+    justify-content: flex-start;
+    padding-inline: 1rem;
+    text-decoration: none;
+    align-items: center;
+}
+
+.button:hover {
+    background-color: var(--color-5);
+}
+
+.button-active {
+    background-color: var(--color-4);
+    color: var(--color-5);
+}
+
+.button-active:hover {
+    background-color: var(--color-4);
+}
+
+.icon-button {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-container header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.item-layout {
+    display: flex;
+    flex-direction: row;
+    min-height: 1rem;
+    height: 100%;
+    max-width: 40ch;
+    /*background-color: var(--color-4);*/
+}
+
+.item-layout > main {
+    flex: 4;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.item-layout > aside {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-2);
+    padding: 0.5rem;
+    width: 3rem;
+}
+
+.item-layout > aside button {
+    background-color: unset;
+    outline: none;
+    border: none;
+}
+
+.ellipses {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.settings-section {
+    border: 1px double var(--color-3);
+    margin-inline: 0.25rem;
+    margin-block: 0.75rem;
+    padding: 0.75rem;
+    padding-block: 2rem;
+    position: relative;
+}
+
+.settings-section > h1 {
+    position: absolute;
+    background-color: var(--color-2);
+    top: -0.7rem;
+    padding-inline: 0.35rem;
+    cursor: default;
+}
+
+.text-block {
+    flex: 1;
+}
