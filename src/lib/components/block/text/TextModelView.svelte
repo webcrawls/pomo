@@ -8,7 +8,6 @@
 
     const handleKeyDown = (event: KeyboardEvent) => processModelInput(event.key)
     const processModelInput = (input: string) => {
-        // ignored keys
         if (input === "Backspace") {
             model = {
                 ...model,
@@ -29,8 +28,7 @@
     }
 </script>
 
-<svelte:element class="text-block"
+<svelte:element this={model.element}
                 contenteditable={editable}
-                on:click
-                on:keydown|preventDefault={handleKeyDown}
-                this={model.element}>{model.text}</svelte:element>
+                class="text-block"
+                on:keydown|preventDefault={handleKeyDown}>{model.text}</svelte:element>

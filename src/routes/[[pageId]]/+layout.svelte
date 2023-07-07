@@ -12,7 +12,7 @@
     setContext("app", app)
 
     $: layout = layouts[$app?.layout ?? 'default']
-    $: theme = themes[$app?.theme ?? 'apocrypha']
+    $: theme = themes[$app?.theme ?? 'default']
 </script>
 
 <svelte:head>

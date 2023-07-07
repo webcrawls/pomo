@@ -40,6 +40,7 @@ export const nextId = (pages: string[] = []) => {
 }
 
 export const defaultSheet = (id: string): SheetData => {
+    id = id ?? stringifyDate(new Date())
     return {
         _id: id,
         _title: id.replace(" ", "-"),
@@ -74,7 +75,7 @@ export const defaultTasksBlock = (id: string): TasksBlock => {
 
 }
 
-export const fadeQuick = (element) => fade(element, {duration: 100})
+export const fadeQuick = (element: HTMLElement) => fade(element, {duration: 100})
 
 export const ignoredEditorKeys = [
     "Alt",

@@ -1,6 +1,7 @@
 import type {Updater, Writable} from "svelte/store";
 import {writable} from "svelte/store";
 import {browser} from "$app/environment";
+import {debounce} from "$lib/util";
 
 export const localStore = <T = any>(key: string,
                                     value: T,
@@ -24,5 +25,5 @@ export const localStore = <T = any>(key: string,
         set(fn(value))
     }
 
-    return {subscribe, set, update}
+    return {subscribe, set: debounce(set, 100), update}
 }

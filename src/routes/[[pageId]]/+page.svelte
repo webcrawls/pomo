@@ -1,5 +1,4 @@
 <script lang="ts">
-    import type {SheetData} from "$lib/api";
     import type {AppInfo} from "$lib/api/app";
     import type {Writable} from "svelte/store";
     import {page} from "$app/stores";
@@ -9,10 +8,11 @@
     import SheetView from "$lib/components/SheetView.svelte";
 
     const app: Writable<AppInfo> = getContext("app")
-    let sheet: Writable<SheetData>
+    $: sheet = sheetStore($page.params.pageId, defaultSheet($page.params.pageId))
 
-    $: pageId = $page.params.pageId ?? "home"
-    $: sheet = sheetStore(pageId, defaultSheet(pageId))
+    const handleSheetUpdate = (event) => {
+        $sheet = event.detail
+    }
 </script>
 
 {#if !sheet || !$sheet}
@@ -20,5 +20,6 @@
         <p>there's nothing here!</p>
     </div>
 {:else}
-    <SheetView {sheet} {pageId}/>
+    <SheetView sheet={$sheet} pageId={$page.params.pageId}
+               on:update={handleSheetUpdate}/>
 {/if}

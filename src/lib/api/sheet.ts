@@ -1,7 +1,7 @@
 import type {ContentBlock} from "$lib/api/content";
 
 /**
- * Interface for objects containing the data of a sheet.
+ * Interface for objects containing sheet data.
  */
 export interface SheetData {
     /**
@@ -14,4 +14,22 @@ export interface SheetData {
     _blocks?: ContentBlock[]
 }
 
-export type PartialSheetData = Omit<SheetData, "_id" | "_title" | "_creationDate">
+export const addContent = (sheet: SheetData, block: ContentBlock): SheetData => ({
+    ...sheet,
+    _blocks: [...(sheet?._blocks ?? []), block]
+})
+
+export const deleteContent = (sheet: SheetData, block: ContentBlock): SheetData => ({
+    ...sheet,
+    _blocks: (sheet?._blocks ?? []).filter(item => item._id !== block._id)
+})
+
+export const updateTitle = (sheet: SheetData, title: string): SheetData => ({
+    ...sheet,
+    _title: title
+})
+
+export const updateContent = (sheet: SheetData, block: ContentBlock): SheetData => ({
+    ...sheet,
+    _blocks: (sheet?._blocks ?? []).map(item => block._id === item._id ? block : item)
+})

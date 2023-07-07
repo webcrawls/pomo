@@ -30,11 +30,10 @@
 
 </script>
 <ul transition:fadeQuick class="sidebar-pages">
-    <li class="sidebar-page button"><a href="/" class:button-active={!$page.params.pageId}>🏠 Home</a></li>
+    <li class="sidebar-page button" class:button-active={!$page.params.pageId}><a href="/">🏠 Home</a></li>
     {#each ($app?.pages ?? []) as pageId}
-        <li class="sidebar-page button">
-            <a class:button-active={$page.params.pageId === pageId}
-               class="sidebar-page-title ellipses"
+        <li class="sidebar-page button" class:button-active={$page.params.pageId === pageId}>
+            <a class="sidebar-page-title ellipses"
                href="/{pageId}">📝 {pageId}</a>
             <a href="#" on:click={removePage.bind(this, pageId) } class="sidebar-page-delete">x</a>
         </li>

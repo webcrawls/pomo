@@ -1,22 +1,14 @@
 <script lang="ts">
     import type {ContentBlock} from "$lib/api";
     import {createEventDispatcher} from "svelte";
-    import TextBlockView from "$lib/components/block/text/TextBlockView.svelte";
-    import TasksBlockView from "$lib/components/block/task/TasksBlockView.svelte";
+    import {determineType} from "$lib/components/block/index";
 
     const dispatch = createEventDispatcher()
 
     export let item: ContentBlock
     export let createHook
 
-    $: type = (() => {
-        switch (item._type) {
-            case "text":
-                return TextBlockView
-            case "tasks":
-                return TasksBlockView
-        }
-    })()
+    $: type = determineType(item._type)
 </script>
 
 <article class="item-layout">
@@ -24,6 +16,6 @@
         <button on:click={() => dispatch("delete")}>x</button>
     </aside>
     <main>
-        <svelte:component {dispatch} this={type} {item} {createHook} on:update on:create on:delete/>
+        <svelte:component {dispatch} this={type} {item} {createHook} on:create on:delete on:update/>
     </main>
 </article>
