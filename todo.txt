@@ -1,2 +1,13 @@
+URGENT
+* fix default theme styling - missing colours :(
+* fix apocrypha styling issues
+* implement user-configured theme/layout approach
+* implement task-todo
+
+TODO
+* generally clean up code (delete old stuff: src/lib/components/item)
+* review deployment options
+
+IDEA
+* move pages in UI by dragging (folders/groups?)
 * export sheet to html, markdown, txt, to be uploaded to a host
-*
