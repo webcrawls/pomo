@@ -8,10 +8,11 @@
     export let sheet: SheetData
 
     const dispatch = createEventDispatcher()
+
     const handleTitleChange = (e: InputEvent) => dispatch("update", updateTitle(sheet, e.target.innerText))
-    const handleAddBlock = (block: ContentBlock) => dispatch("update", addContent(sheet, block))
-    const handleDeleteBlock = (block: ContentBlock) => dispatch("update", deleteContent(sheet, block))
-    const handleUpdateBlock = (block: ContentBlock) => dispatch("update", updateContent(sheet, block))
+    const handleAddBlock = (e: CustomEvent<ContentBlock>) => dispatch("update", addContent(sheet, e.detail))
+    const handleDeleteBlock = (e: CustomEvent<ContentBlock>) => dispatch("update", deleteContent(sheet, e.detail))
+    const handleUpdateBlock = (e: CustomEvent<ContentBlock>) => dispatch("update", updateContent(sheet, e.detail))
 </script>
 <article class="page-container">
     <header class="page-header">

@@ -1,10 +1,12 @@
 <script lang="ts">
     import type {TextModel} from "$lib/api";
     import {ignoredEditorKeys} from "$lib/util";
+    import {createEventDispatcher} from "svelte";
 
     export let model: TextModel
     export let editable: boolean = false
-    export let dispatch
+
+    const dispatch = createEventDispatcher()
 
     const handleKeyDown = (event: KeyboardEvent) => processModelInput(event.key)
     const processModelInput = (input: string) => {
@@ -13,6 +15,7 @@
                 ...model,
                 text: model.text.slice(0, model.text.length - 1)
             }
+            dispatch("update", model)
             return
         } else if (input === "Enter") {
             dispatch("create")
@@ -25,6 +28,7 @@
             ...model,
             text: model.text + input
         }
+        dispatch("update", model)
     }
 </script>
 

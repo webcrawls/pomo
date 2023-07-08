@@ -6,7 +6,6 @@
     const dispatch = createEventDispatcher()
 
     export let item: ContentBlock
-    export let createHook
 
     $: type = determineType(item._type)
 </script>
@@ -16,6 +15,6 @@
         <button on:click={() => dispatch("delete")}>x</button>
     </aside>
     <main>
-        <svelte:component {dispatch} this={type} {item} {createHook} on:create on:delete on:update/>
+        <svelte:component this={type} {item} on:create on:delete on:update/>
     </main>
 </article>

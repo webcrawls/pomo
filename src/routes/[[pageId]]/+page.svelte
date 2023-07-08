@@ -9,7 +9,10 @@
     const app: Writable<AppInfo> = getContext("app")
     const sheet: SheetStore = getContext("sheet")
 
-    const handleSheetUpdate = (event) => $sheet = event.detail
+    const handleSheetUpdate = (event) => {
+        console.log("updating sheet", event.detail)
+        $sheet = event.detail
+    }
 </script>
 
 {#if !sheet || !$sheet}

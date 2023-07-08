@@ -68,6 +68,7 @@ export const localStore = <T = any>(
 
   const set = (newValue: T) => {
     _value = newValue;
+    console.log({ set: _value });
     initialSet(_value);
     saveStorage();
   };

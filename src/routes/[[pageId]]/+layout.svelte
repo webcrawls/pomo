@@ -46,6 +46,7 @@
         }
     })
 
+    $: sheet.changePage($page.params.pageId)
     $: layout = layouts[$app?.layout ?? 'default']
     $: theme = themes[$app?.theme ?? 'default']
 </script>
