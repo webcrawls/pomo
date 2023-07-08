@@ -1,7 +1,6 @@
 import type { Writable } from "svelte/store";
 import type { SheetData } from "$lib/api";
 import { localStore } from "$lib/stores/local";
-import { defaultSheet } from "$lib/util";
 
 export interface SheetStore extends Writable<SheetData> {
   changePage: (id: string, defaultValue?: SheetData) => void;
@@ -22,11 +21,11 @@ export const sheetStore = (
   // @ts-ignore for now but todo :D
   let _storageId: string = storageId;
 
-  const changePage = (newStorageId: string) => {
+  const changePage = (newStorageId: string, df?: SheetData) => {
     _storageId = newStorageId;
     target({
       key: "pomo:sheet:" + _storageId,
-      defaultValue: defaultSheet(newStorageId),
+      defaultValue: df,
     });
   };
 
@@ -35,7 +34,7 @@ export const sheetStore = (
     target({ key: "pomo:sheet:" + _storageId });
   }
 
-  subscribe((v) => console.log({ v }));
+  // subscribe((sheet) => console.log({ sheet }));
 
   return {
     set,

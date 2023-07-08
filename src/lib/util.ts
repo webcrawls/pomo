@@ -39,7 +39,6 @@ export const nextId = (pages: string[] = []) => {
 };
 
 export const defaultSheet = (id: string): SheetData => {
-  id = id ?? stringifyDate(new Date());
   return {
     _id: id,
     _title: id,

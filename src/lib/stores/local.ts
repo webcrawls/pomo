@@ -24,7 +24,7 @@ export const localStore = <T = any>(
   } = writable<T>(storageTarget?.defaultValue);
 
   // state
-  let _value: T;
+  let _value: T | undefined;
   let _key: string | undefined;
   let _deserializer: ((value: string) => T) | undefined;
   let _serializer: ((value: T) => string) | undefined;
@@ -41,7 +41,7 @@ export const localStore = <T = any>(
     if (stored) {
       // @ts-ignore it wont be null i promise
       initialSet(deserialized);
-    } else if (_defaultValue) {
+    } else {
       set(_defaultValue);
     }
   };
@@ -49,8 +49,12 @@ export const localStore = <T = any>(
   // If a storageTarget has been provided,
   // this function saves the store's current value to localStorage.
   const saveStorage = () => {
-    if (!_key || !_serializer) return;
-    browser && localStorage.setItem(_key, _serializer(_value));
+    if (!browser || !_key || !_serializer) return;
+    if (!_value) {
+      localStorage.removeItem(_key);
+    } else {
+      localStorage.setItem(_key, _serializer(_value));
+    }
   };
 
   const target = (newTarget: StoreTarget<T>) => {
@@ -66,9 +70,9 @@ export const localStore = <T = any>(
   };
   // A custom store.set that calls saveStorage
 
-  const set = (newValue: T) => {
+  const set = (newValue: T | undefined) => {
     _value = newValue;
-    console.log({ set: _value });
+    // @ts-ignore yes its ok :D
     initialSet(_value);
     saveStorage();
   };
