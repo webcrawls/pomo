@@ -46,7 +46,7 @@
         }
     })
 
-    $: sheet.changePage($page.params.pageId)
+    $: sheet.changePage($page.params.pageId ?? 'home')
     $: layout = layouts[$app?.layout ?? 'default']
     $: theme = themes[$app?.theme ?? 'default']
 </script>
