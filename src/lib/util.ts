@@ -3,6 +3,7 @@ import format from "date-fns/format/index";
 import parse from "date-fns/parse/index";
 import isValid from "date-fns/isValid/index";
 import { fade } from "svelte/transition";
+import { v4 } from "uuid";
 
 export const debounce = (fn: Function, ms = 300) => {
   let timeoutId: ReturnType<typeof setTimeout>;
@@ -38,20 +39,27 @@ export const nextId = (pages: string[] = []) => {
   return guessed;
 };
 
+export const sheetId = (): string => {
+  return v4();
+};
+
+export const blockId = (): string => {
+  return v4();
+};
+
 export const defaultSheet = (id: string): SheetData => {
   return {
     _id: id,
     _title: id,
     _blocks: [],
     // todo fix heer vvv
-    _storageUuid: String(new Date().getDate()),
     _creationDate: new Date().getDate(),
   };
 };
 
-export const defaultTextBlock = (id: string): TextBlock => {
+export const defaultTextBlock = (id?: string): TextBlock => {
   return {
-    _id: String(id ?? new Date().getTime()),
+    _id: id ?? blockId(),
     _type: "text",
     content: [
       {
@@ -64,9 +72,9 @@ export const defaultTextBlock = (id: string): TextBlock => {
   };
 };
 
-export const defaultTasksBlock = (id: string): TasksBlock => {
+export const defaultTasksBlock = (id?: string): TasksBlock => {
   return {
-    _id: String(id ?? new Date().getTime()),
+    _id: id ?? blockId(),
     _type: "tasks",
     tasks: [{ name: "new task", completed: false }],
     _children: [],
