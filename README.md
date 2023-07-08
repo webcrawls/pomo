@@ -15,3 +15,20 @@ A user-friendly note-taking application.
 > sort of static-site generator, ideally with theming/layout capabilities.
 
 - support for embedding many content types: code, links, media, etc
+
+## usage
+
+Currently, no publicly-available instance of pomo exists.
+However, downloading and running pomo locally is fairly simple;
+
+- `git clone` this repository
+- run `npm install` to download project dependencies
+- run `npm run dev` to start a development server
+- run `npm run build` to create a production build
+- run `npm run preview` to preview a production build
+
+## credits
+
+- [Font Awesome](https://fontawesome.com/) for a few icons
+- [Svelte](https://svelte.dev/) for providing a great framework
+- [apocrypha.css](https://apocrypha.snows.world/) as a theme
