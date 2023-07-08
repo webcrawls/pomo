@@ -23,13 +23,22 @@ export const addContent = (
 
 export const deleteContent = (
   sheet: SheetData,
-  block: ContentBlock | number,
-): SheetData => ({
-  ...sheet,
-  _blocks: (sheet?._blocks ?? []).filter((item, i) =>
-    typeof block === "number" ? i !== block : item._id !== block._id,
-  ),
-});
+  block: ContentBlock | number | string,
+): SheetData => {
+  return {
+    ...sheet,
+    _blocks: (sheet?._blocks ?? []).filter((item, i) => {
+      switch (typeof block) {
+        case "string":
+          return item._id !== block;
+        case "number":
+          return i !== block;
+        default:
+          return item !== block;
+      }
+    }),
+  };
+};
 
 export const updateTitle = (sheet: SheetData, title: string): SheetData => ({
   ...sheet,
