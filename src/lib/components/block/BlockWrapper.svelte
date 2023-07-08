@@ -7,7 +7,7 @@
 
     export let item: ContentBlock
 
-    $: type = determineType(item._type)
+    $: type = item ? determineType(item._type) : null
 </script>
 
 <article class="item-layout">
@@ -15,6 +15,10 @@
         <button on:click={() => dispatch("delete")}>x</button>
     </aside>
     <main>
-        <svelte:component this={type} {item} on:create on:delete on:update/>
+        {#if !type}
+            <p>no component - todo better style here</p>
+        {:else}
+            <svelte:component this={type} {item} on:create on:delete on:update/>
+        {/if}
     </main>
 </article>

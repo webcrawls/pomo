@@ -44,6 +44,7 @@ export const defaultSheet = (id: string): SheetData => {
     _id: id,
     _title: id,
     _blocks: [],
+    // todo fix heer vvv
     _storageUuid: String(new Date().getDate()),
     _creationDate: new Date().getDate(),
   };

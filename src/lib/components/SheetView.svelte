@@ -10,8 +10,8 @@
     const dispatch = createEventDispatcher()
 
     const handleTitleChange = (e: InputEvent) => dispatch("update", updateTitle(sheet, e.target.innerText))
-    const handleAddBlock = (e: CustomEvent<ContentBlock>) => dispatch("update", addContent(sheet, e.detail))
-    const handleDeleteBlock = (e: CustomEvent<ContentBlock>) => dispatch("update", deleteContent(sheet, e.detail))
+    const handleAddBlock = (block: ContentBlock) => dispatch("update", addContent(sheet, block))
+    const handleDeleteBlock = (i: number) => dispatch("update", deleteContent(sheet, i))
     const handleUpdateBlock = (e: CustomEvent<ContentBlock>) => dispatch("update", updateContent(sheet, e.detail))
 </script>
 <article class="page-container">
@@ -26,7 +26,7 @@
             <a href="#" on:click|preventDefault={handleAddBlock.bind(this, defaultTasksBlock())}>add some tasks?</a>
         {/if}
         {#each sheet._blocks as item, i}
-            <BlockWrapper on:delete={handleDeleteBlock} on:update={handleUpdateBlock} {item}/>
+            <BlockWrapper on:delete={handleDeleteBlock.bind(this, i)} on:update={handleUpdateBlock} {item}/>
         {/each}
     </div>
 </article>

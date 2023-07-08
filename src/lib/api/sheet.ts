@@ -23,10 +23,12 @@ export const addContent = (
 
 export const deleteContent = (
   sheet: SheetData,
-  block: ContentBlock,
+  block: ContentBlock | number,
 ): SheetData => ({
   ...sheet,
-  _blocks: (sheet?._blocks ?? []).filter((item) => item._id !== block._id),
+  _blocks: (sheet?._blocks ?? []).filter((item, i) =>
+    typeof block === "number" ? i !== block : item._id !== block._id,
+  ),
 });
 
 export const updateTitle = (sheet: SheetData, title: string): SheetData => ({
