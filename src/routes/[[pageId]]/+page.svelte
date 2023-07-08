@@ -4,15 +4,12 @@
     import type {SheetStore} from "$lib/stores";
     import {getContext} from "svelte";
     import SheetView from "$lib/components/SheetView.svelte";
-    import DebugContainer from "$lib/components/debug/DebugContainer.svelte";
+    import DebugContainer from "$lib/components/widget/debug/DebugContainer.svelte";
 
     const app: Writable<AppInfo> = getContext("app")
     const sheet: SheetStore = getContext("sheet")
 
-    const handleSheetUpdate = (event) => {
-        console.log("updating sheet", event.detail)
-        $sheet = event.detail
-    }
+    const handleSheetUpdate = (event) => $sheet = event.detail
 </script>
 
 {#if !sheet || !$sheet}

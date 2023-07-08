@@ -23,7 +23,6 @@
     setContext("controller", {
         createPage: () => {
             let id = nextId($app.pages ?? [])
-            console.log({generated: id})
             sheet.changePage(id, defaultSheet(id))
             $app = {
                 ...$app, pages: [...($app?.pages ?? []), id]

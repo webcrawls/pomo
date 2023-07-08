@@ -34,8 +34,6 @@ export const sheetStore = (
     target({ key: "pomo:sheet:" + _storageId });
   }
 
-  // subscribe((sheet) => console.log({ sheet }));
-
   return {
     set,
     update,
