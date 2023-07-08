@@ -11,14 +11,19 @@
 </script>
 
 <article class="item-layout">
-    <aside>
-        <button on:click={() => dispatch("delete")}>x</button>
-    </aside>
-    <main>
-        {#if !type}
-            <p>no component - todo better style here</p>
-        {:else}
-            <svelte:component this={type} {item} on:create on:delete on:update/>
-        {/if}
-    </main>
+    <header class="item-header">
+        <p>{item._id}</p>
+    </header>
+    <div class="item-content">
+        <aside class="item-aside">
+            <button class="item-button" on:click={() => dispatch("delete")}>x</button>
+        </aside>
+        <main class="item-main">
+            {#if !type}
+                <p>no component - todo better style here</p>
+            {:else}
+                <svelte:component this={type} {item} on:create on:delete on:update/>
+            {/if}
+        </main>
+    </div>
 </article>
