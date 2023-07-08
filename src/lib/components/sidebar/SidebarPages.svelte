@@ -1,34 +1,14 @@
 <script lang="ts">
-    import type {Writable} from "svelte/store";
-    import type {AppInfo} from "$lib/api/app";
-    import {nextId, fadeQuick} from "$lib/util";
-    import {browser} from "$app/environment";
+    import {fadeQuick, nextId} from "$lib/util";
     import {page} from "$app/stores";
-    import {goto} from "$app/navigation";
+    import {getContext} from "svelte";
+    import type {Writable} from "svelte/store";
+    import type {AppInfo} from "$lib/api";
 
-    export let app: Writable<AppInfo>
-
-    const addPage = () => $app = {
-        ...$app, pages: [...($app?.pages ?? []), nextId($app.pages)]
-    }
-
-    const removePage = (id: string) => {
-        // Remove reference to page ID from app state
-        $app = {
-            ...$app,
-            pages: $app.pages.filter(page => page !== id),
-        }
-
-        // Navigate off removal target if necessary
-        if ($page.params.pageId === id) {
-            goto('/', {replaceState: false, invalidateAll: true})
-        }
-
-        // Remove page from storage
-        if (browser) localStorage.removeItem("pomo:sheet:id")
-    }
-
+    const app: Writable<AppInfo> = getContext("app")
+    const {createPage, removePage} = getContext("controller")
 </script>
+
 <ul transition:fadeQuick class="sidebar-pages">
     <li class="sidebar-page button" class:button-active={!$page.params.pageId}><a href="/">🏠 Home</a></li>
     {#each ($app?.pages ?? []) as pageId}
@@ -38,5 +18,5 @@
             <a href="#" on:click={removePage.bind(this, pageId) } class="sidebar-page-delete">x</a>
         </li>
     {/each}
-    <li><a class="button" href="#" on:click={addPage}>+</a></li>
+    <li><a class="button" href="#" on:click={() => createPage()}>+</a></li>
 </ul>

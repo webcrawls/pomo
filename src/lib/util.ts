@@ -27,11 +27,10 @@ export const unstringifyDate = (date?: string): Date | undefined => {
 
 export const nextId = (pages: string[] = []) => {
   const date = stringifyDate(new Date());
-
   let guessed = date;
   let its = 0;
 
-  while (pages.indexOf(guessed) != -1) {
+  while ((pages ?? []).indexOf(guessed) !== -1) {
     guessed = `${date}-${its}`;
     its += 1;
   }
@@ -43,7 +42,7 @@ export const defaultSheet = (id: string): SheetData => {
   id = id ?? stringifyDate(new Date());
   return {
     _id: id,
-    _title: id.replace(" ", "-"),
+    _title: id,
     _blocks: [],
     _storageUuid: String(new Date().getDate()),
     _creationDate: new Date().getDate(),

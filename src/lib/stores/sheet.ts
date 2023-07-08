@@ -1,41 +1,46 @@
-import type {Writable} from "svelte/store";
-import type {ContentBlock, PartialContentBlock, SheetData} from "$lib/api";
-import {localStore} from "$lib/stores/local";
+import type { Writable } from "svelte/store";
+import type { SheetData } from "$lib/api";
+import { localStore } from "$lib/stores/local";
+import { defaultSheet } from "$lib/util";
 
 export interface SheetStore extends Writable<SheetData> {
-    addBlock: (block: PartialContentBlock) => void;
-    deleteBlock: (block: ContentBlock) => void;
-    setBlock: (index: number, item: ContentBlock) => void;
+  changePage: (id: string, defaultValue?: SheetData) => void;
 }
 
-export const sheetStore = (id: string, initial: SheetData): SheetStore => {
-    const {set, update, subscribe} = localStore<SheetData>(
-        "pomo:sheet:" + id,
-        initial,
-    );
+/**
+ * Constructs a {@code SheetStore}.
+ *
+ * @param storageId the storage ID of the target store
+ * @param initial the initial sheet value
+ */
+export const sheetStore = (
+  storageId?: string,
+  initial?: SheetData,
+): SheetStore => {
+  const { set, update, subscribe, target } = localStore<SheetData>();
 
-    const addBlock = (block: PartialContentBlock) =>
-        update((data) => ({
-            ...data,
-            _blocks: [
-                ...(data?._blocks ?? []),
-                {...block, _id: String(new Date().getTime())},
-            ],
-        }));
+  // @ts-ignore for now but todo :D
+  let _storageId: string = storageId;
 
-    const deleteBlock = (block: ContentBlock) =>
-        update((data) => ({
-            ...data,
-            _blocks: (data?._blocks ?? []).filter((b) => b._id !== block._id),
-        }));
+  const changePage = (newStorageId: string) => {
+    _storageId = newStorageId;
+    target({
+      key: "pomo:sheet:" + _storageId,
+      defaultValue: defaultSheet(newStorageId),
+    });
+  };
 
-    const setBlock = (index: number, content: ContentBlock): void =>
-        update((data) => ({
-            ...data,
-            _blocks: (data?._blocks ?? []).map((b, i) => (i === index ? content : b)),
-        }));
+  // If a storageId is present, update the localStore's target
+  if (_storageId) {
+    target({ key: "pomo:sheet:" + _storageId });
+  }
 
-    subscribe(console.log);
+  subscribe((v) => console.log({ v }));
 
-    return {set, update, subscribe, addBlock, deleteBlock, setBlock};
+  return {
+    set,
+    update,
+    subscribe,
+    changePage,
+  };
 };

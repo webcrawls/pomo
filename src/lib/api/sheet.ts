@@ -7,7 +7,6 @@ export interface SheetData {
   /**
    * The ID of this sheet.
    */
-  _storageUuid?: string;
   _id?: string;
   _title?: string;
   _creationDate?: number;

@@ -1,19 +1,15 @@
 <script lang="ts">
     import type {AppInfo} from "$lib/api/app";
     import type {Writable} from "svelte/store";
-    import {page} from "$app/stores";
-    import {sheetStore} from "$lib/stores";
-    import {defaultSheet} from "$lib/util";
+    import type {SheetStore} from "$lib/stores";
     import {getContext} from "svelte";
     import SheetView from "$lib/components/SheetView.svelte";
     import DebugContainer from "$lib/components/debug/DebugContainer.svelte";
 
     const app: Writable<AppInfo> = getContext("app")
-    $: sheet = sheetStore($page.params.pageId, defaultSheet($page.params.pageId))
+    const sheet: SheetStore = getContext("sheet")
 
-    const handleSheetUpdate = (event) => {
-        $sheet = event.detail
-    }
+    const handleSheetUpdate = (event) => $sheet = event.detail
 </script>
 
 {#if !sheet || !$sheet}
@@ -21,7 +17,6 @@
         <p>there's nothing here!</p>
     </div>
 {:else}
-    <SheetView sheet={$sheet} pageId={$page.params.pageId}
-               on:update={handleSheetUpdate}/>
+    <SheetView sheet={$sheet} on:update={handleSheetUpdate}/>
 {/if}
 <DebugContainer sheet="{$sheet}"/>
